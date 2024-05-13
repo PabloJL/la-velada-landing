@@ -1,0 +1,41 @@
+<section
+  class="mt-32 mx-auto flex flex-col justify-center items-center text-center text-primary"
+>
+  <h2 class="uppercase text-5xl font-semibold">
+    4 de Marzo <span aria-hidden class="hidden md:inline">·</span><br
+      aria-hidden
+      class="block md:hidden"
+    />
+    <span>
+      <script is:inline>
+        const END_DATE = 1709575200000;
+        const d = new Date(END_DATE);
+        const date = d.toLocaleTimeString("es", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        //get current timezone
+        const tzOffset = d.getTimezoneOffset() / 60;
+        const diff = tzOffset * -1;
+        const gmt = diff > 0 ? `GMT+${diff}` : `GMT-${Math.abs(diff)}`;
+        const selfScript = document.currentScript;
+        selfScript.parentNode.innerHTML = `${date}H ${gmt}`;
+      </script>
+    </span>
+  </h2>
+
+  <h3 class="uppercase text-2xl font-medium flex flex-col max-w-sm mt-6">
+    <span>Evento de Presentación</span>
+    <span>Teatro Victoria (Barcelona)</span>
+  </h3>
+
+  <a
+    class={`border-2 border-primary uppercase text-lg font-medium px-4 py-1 mt-8 hover:bg-slate-300 hover:scale-125 transition inline-block`}
+    href="https://www.entradas.com/artist/la-velada-del-ano/?affiliate=LVL"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Entradas Agotadas
+  </a>
+</section>
