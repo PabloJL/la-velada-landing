@@ -14,17 +14,17 @@ import TwitchIcon from "@/icons/twitch.astro";
     </a>
   </div>
   <div
-    class="flex flex-col md:flex-row md:grid-cols-4 uppercase text-center gap-x-10"
+    class="grid [grid-template-columns:1fr] uppercase text-center gap-x-10 md:[grid-template-columns:1fr_1.5fr_1fr]"
   >
     <article
-      class="order-2 md:order-none flex justify-center items-center text-xl md:py-20 py-10 px-10 border-y-2 border-primary"
+      class="order-2 md:order-none md:flex-grow flex justify-center items-center text-xl md:py-12 lg:py-20 py-10 px-10 border-y-2 border-primary"
     >
       <h5 class="w-56 text-center">
         Presentación, Pesaje, Entrevista y Cara a Cara
       </h5>
     </article>
     <article
-      class="order-1 md:order-none border-t-2 col-span-2 flex justify-center items-center text-4xl py-10 md:py-20 px-10 md:border-y-2 border-primary"
+      class="order-1 md:order-none md:flex-1 border-t-2 flex justify-center items-center text-4xl py-10 md:py-12 lg:py-20 px-10 md:border-y-2 border-primary"
     >
       <h4>
         <a
@@ -38,7 +38,7 @@ import TwitchIcon from "@/icons/twitch.astro";
       </h4>
     </article>
     <article
-      class="order-3 md:order-none flex justify-center items-center text-xl py-10 md:py-20 px-10 border-b-2 md:border-y-2 border-primary"
+      class="order-3 md:order-none flex justify-center items-center text-xl py-10 md:py-12 lg:py-20 px-10 border-b-2 md:border-y-2 border-primary"
     >
       <h5>Con la presencia de los boxeadores y las boxeadoras</h5>
     </article>
