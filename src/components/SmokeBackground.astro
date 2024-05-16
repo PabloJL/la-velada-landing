@@ -3,8 +3,8 @@
 <script>
   import * as THREE from "three";
   const $bkg = document.getElementById("smoke-bg");
-  const w = window.innerWidth;
-  const h = window.innerHeight;
+  let w = window.innerWidth;
+  let h = window.innerHeight;
 
   //inicializar three.js
 
@@ -70,6 +70,14 @@
     }
   });
 
+  function resize() {
+    h = window.innerHeight;
+    w = window.innerWidth;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix(); //se ejecuta siempre que se cambian los parametros de la camara
+    renderer.setSize(w, h);
+  }
+
   function animate() {
     requestAnimationFrame(animate);
     // cube.rotation.x += 0.01;
@@ -81,4 +89,7 @@
   }
 
   animate();
+
+  //se triggerea continuamente mientras se hace el resize
+  window.addEventListener("resize", resize);
 </script>
