@@ -3,7 +3,21 @@ import HeroLogo from "@/components/HeroLogo.astro";
 ---
 
 <section class="flex flex-col justify-center items-center">
-  <HeroLogo
-    class="h-auto w-[250px] animate-fade-in-up overflow-visible md:w-[500px] text-primary dark:text-white"
-  />
+  <h1 class="sr-only">Presentación de la Velada del Año IV</h1>
+  <h2 class="font-black">twitch/ibai</h2>
+  <div class="relative">
+    <img
+      src="/img/drawn-x-logo.png"
+      class="absolute inset-0 -z-10 m-auto w-[400px] block h-auto scale-[175%]"
+      alt="Logo fosfo de la Velada del Año IV"
+    />
+    <div
+      class="absolute inset-0 -z-10 m-auto rounded-full size-[400px] bg-black blur-2xl opacity-80"
+    >
+    </div>
+    <HeroLogo class="h-auto w-[300px] md:w-[500px] text-primary" />
+    <HeroLogo
+      class="text-[#f1ffaa]/50 blur absolute inset-0 -z-10 h-auto w-[300px] md:w-[500px]"
+    />
+  </div>
 </section>
