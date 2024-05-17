@@ -109,15 +109,4 @@
 
   // se va a disparar continuamente mientras hace el resize
   window.addEventListener("resize", resize);
-
-  window.addEventListener("theme-changed", () => {
-    const themePreference = window.getThemePreference();
-    currentTheme = THEME[themePreference];
-    light.color.setHex(currentTheme.light);
-    renderer.setClearColor(currentTheme.background, 1);
-
-    smokeParticles.forEach((particle) => {
-      particle.material.opacity = currentTheme.opacity;
-    });
-  });
 </script>
