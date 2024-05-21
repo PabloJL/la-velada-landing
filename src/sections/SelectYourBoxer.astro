@@ -1,79 +1,138 @@
 ---
-const SPONSORS = [
-  {
-    id: "alsa",
-    name: "Alsa",
-    url: "https://alsa.es",
-  },
-  {
-    id: "cerave",
-    name: "Cerave",
-    url: "https://cerave.es",
-  },
-  {
-    id: "el-pozo",
-    name: "El Pozo",
-    url: "https://elpozo.com",
-  },
-  {
-    id: "grefusa",
-    name: "Grefusa",
-    url: "https://grefusa.com",
-  },
-  {
-    id: "maxibon",
-    name: "Maxibon",
-    url: "https://maxibon.es",
-  },
-  {
-    id: "prime",
-    name: "Prime",
-    url: "https://drinkprime.com/",
-  },
-  {
-    id: "revolut",
-    name: "Revolut",
-    url: "https://revolut.com",
-  },
-  {
-    id: "spotify",
-    name: "Spotify",
-    url: "https://spotify.com",
-  },
-  {
-    id: "vicio",
-    name: "Vicio",
-    url: "https://www.ganasdevicio.com/",
-  },
-];
+import { BOXERS } from "@/consts/boxers";
+import { COUNTRIES } from "@/consts/countries";
+
+const listOfBoxers = BOXERS.map((boxer) => {
+  const { country } = boxer;
+  const countryName = COUNTRIES[country]?.name || "";
+  return { ...boxer, countryName };
+});
 ---
 
 <section class="my-40">
-  <h3 class="text-white text-3xl font-bold uppercase text-center">
-    Patrocinadores
+  <h3 class="text-white text-4xl font-bold uppercase text-center">
+    Elige tu luchador
   </h3>
-  <p class="mt-4 text-xl text-neutral-300 text-center">
-    La Velada puede llevarse a cabo gracias a la colaboración de ...
-  </p>
+  <div class="mt-40">
+    <article>
+      <header>
+        <img
+          src="/img/boxers/el-mariana-big.webp"
+          alt={`Fotografia de el Mariana`}
+          class="boxer-photo"
+        />
+        <img
+          src="/img/boxers/el-mariana-title.webp"
+          alt={`Fotografia de el Mariana`}
+          class="boxer-title"
+        />
+        <img
+          src="/img/flags/mx.webp"
+          alt={`Bandera de México`}
+          class="boxer-flag"
+        />
+      </header>
+      <footer class="flex w-full justify-between">
+        <div class="flex flex-col gap-y-2">
+          <h4 class="text-lg">País</h4>
+          <p class="text-lg font-bold">México</p>
+          <a
+            href="#"
+            class="mt-10 inline-block font-semibold text-accent transition hover:scale-110"
+          >
+            Ver combate
+          </a>
+        </div>
 
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
-    {
-      SPONSORS.map(({ id, name, url }) => (
-        <a
-          class="group flex h-24 justify-center items-center md:h-32 bg-gradient-to-b from-white/10 via-transparent to-transparent hover:from-white/20  "
-          title={`Visita la Página del patrocinador ${name}`}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            loading="lazy"
-            src={`/img/${id}.svg`}
-            alt={`Logo del patrocinador ${name}`}
-            class="h-auto w-32 transition group-hover:scale-110"
-          />
-        </a>
-      ))
-    }
+        <div class="flex flex-col gap-y-2">
+          <h4 class="text-lg">Peso</h4>
+          <p class="text-lg font-bold">61 kg</p>
+          <a
+            href="#"
+            class="mt-10 inline-block font-semibold text-accent transition hover:scale-110"
+          >
+            Ver perfil
+          </a>
+        </div>
+      </footer>
+    </article>
+    <aside class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
+      {
+        listOfBoxers.map(({ id, name }) => (
+          <a
+            class="boxer-link group relative flex h-20 items-center justify-center"
+            title={`Visita la página del boxeador ${name}`}
+            href={`/boxers/${id}`}
+            data-id={id}
+          >
+            <img
+              loading="lazy"
+              src={`/img/boxers/${id}-small.png`}
+              alt={`Foto en pequeño del boxeador ${name}`}
+              class="boxer-image h-auto w-32 transition group-hover:scale-110 px-4"
+            />
+          </a>
+        ))
+      }
+    </aside>
   </div>
 </section>
+
+<style>
+  .boxer-link {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 40%,
+      transparent 100%
+    );
+    transition: all 0.5s ease;
+  }
+
+  .boxer-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 40%,
+      transparent 100%
+    );
+    opacity: 0;
+    height: 50%;
+    transition:
+      opacity 0.2s ease-in-out,
+      height 0.2s ease-in-out;
+  }
+
+  .boxer-link:hover::before {
+    opacity: 0.8;
+    height: 90%;
+    box-shadow: 0 0px 3px rgba(50, 50, 50, 0.75);
+  }
+
+  .boxer-image {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .boxer-link:hover .boxer-image {
+    transform: scale(1.1);
+  }
+
+  aside {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 40px;
+
+    a {
+      grid-column: span 2;
+
+      &:nth-child(11n + 7) {
+        grid-column-start: 2;
+        grid-column-end: 4;
+      }
+    }
+  }
+</style>
