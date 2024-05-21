@@ -13,26 +13,35 @@ const listOfBoxers = BOXERS.map((boxer) => {
   <h3 class="text-white text-4xl font-bold uppercase text-center">
     Elige tu luchador
   </h3>
-  <div class="mt-40">
-    <article>
-      <header>
+  <div class="flex flex-col items-center justify-center gap-8">
+    <article
+      class="relative flex w-full flex-col items-center justify-center"
+      style="view-transition-name: boxer;"
+    >
+      <header
+        class="relative flex w-full flex-col items-center justify-center bg-center bg-no-repeat"
+        style="background-image: url('/img/effects/boxer-background.png'); background-size: 75%;"
+      >
         <img
           src="/img/boxers/el-mariana-big.webp"
           alt={`Fotografia de el Mariana`}
-          class="boxer-photo"
+          class="boxer-photo h-[800px] w-[480px] object-contain"
+          style="filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));"
         />
         <img
           src="/img/boxers/el-mariana-title.webp"
           alt={`Fotografia de el Mariana`}
-          class="boxer-title"
+          class="boxer-title absolute bottom-0"
         />
         <img
           src="/img/flags/mx.webp"
           alt={`Bandera de México`}
-          class="boxer-flag"
+          class="boxer-flag h-20 w-24 object-contain object-center"
         />
       </header>
-      <footer class="flex w-full justify-between">
+      <footer
+        class="absolute bottom-0 flex w-full justify-between text-center text-white"
+      >
         <div class="flex flex-col gap-y-2">
           <h4 class="text-lg">País</h4>
           <p class="text-lg font-bold">México</p>
@@ -69,7 +78,7 @@ const listOfBoxers = BOXERS.map((boxer) => {
               loading="lazy"
               src={`/img/boxers/${id}-small.png`}
               alt={`Foto en pequeño del boxeador ${name}`}
-              class="boxer-image h-auto w-32 transition group-hover:scale-110 px-4"
+              class="boxer-image -mt-20 w-full object-contain px-2 transition group-hover:scale-110"
             />
           </a>
         ))
