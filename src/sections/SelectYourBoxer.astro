@@ -67,12 +67,15 @@ const listOfBoxers = BOXERS.map((boxer) => {
     </article>
     <aside class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
       {
-        listOfBoxers.map(({ id, name }) => (
+        listOfBoxers.map(({ id, name, country, countryName }) => (
           <a
             class="boxer-link group relative flex h-20 items-center justify-center"
             title={`Visita la página del boxeador ${name}`}
             href={`/boxers/${id}`}
             data-id={id}
+            data-name={name}
+            data-country={country}
+            data-country-name={countryName}
           >
             <img
               loading="lazy"
@@ -89,7 +92,27 @@ const listOfBoxers = BOXERS.map((boxer) => {
 
 <script>
   const boxerLinks = document.querySelectorAll(".boxer-link");
-  const boxerTitle = document.querySelector(".boxer-title");
+  const boxerTitle = document.querySelector(".boxer-title") as HTMLImageElement;
+  const boxerPhoto = document.querySelector(".boxer-photo") as HTMLImageElement;
+  const boxerCountry = document.querySelector(
+    ".boxer-flag"
+  ) as HTMLImageElement;
+
+  boxerLinks.forEach((link) => {
+    link.addEventListener("mouseenter", (event) => {
+      const { id, name, country, countryName } = event.currentTarget?.dataset;
+      const boxerSrc = `/img/boxers/${id}-big.webp`;
+      const titleSrc = `/img/boxers/${id}-title.webp`;
+
+      boxerPhoto.src = boxerSrc;
+      boxerTitle.src = titleSrc;
+      boxerCountry.src = `/img/flags/${country}.webp`;
+
+      boxerPhoto.alt = `Fotografia de ${name}`;
+      boxerTitle.alt = name;
+      boxerCountry.alt = `Bandera de ${countryName}`;
+    });
+  });
 </script>
 
 <style>
