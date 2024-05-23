@@ -7,40 +7,69 @@ const listOfBoxers = BOXERS.map((boxer) => {
   const countryName = COUNTRIES[country]?.name || "";
   return { ...boxer, countryName };
 });
+
+const msFadeLuchador = 150;
 ---
 
 <section class="my-40">
   <h3 class="text-white text-4xl font-bold uppercase text-center">
     Elige tu luchador
   </h3>
+
+  <p class="mt-4 text-center text-neutral-50">
+    Conoce los detalles de cada boxeador
+  </p>
+
   <div class="flex flex-col items-center justify-center gap-8">
     <article
+      data-transition-duration={msFadeLuchador}
       class="relative flex w-full flex-col items-center justify-center"
       style="view-transition-name: boxer;"
     >
-      <header
-        class="relative flex w-full flex-col items-center justify-center bg-center bg-no-repeat"
-        style="background-image: url('/img/effects/boxer-background.png'); background-size: 75%;"
-      >
+      <header class="relative flex w-full flex-col items-center justify-center">
+        <div
+          class="absolute inset-0 -z-20 m-auto bg-center bg-no-repeat"
+          style="
+						background-image: url('/img/effects/boxer-background.png');
+						background-size: 75%;
+						mask-image: linear-gradient(to bottom, black 50%, transparent 80%);
+						"
+        >
+        </div>
+        <picture
+          transition:name="boxer-big-image"
+          class:list={"boxer-photo h-auto object-contain px-10 sm:w-[30vw] sm:px-0 xl:w-[19vw] 3xl:h-[600px] 3xl:w-[480px]"}
+        >
+          <source srcset="/img/boxers/el-mariana-big.avif" type="image/avif" />
+          <img
+            class:list={"boxer-photo h-auto object-contain px-10 sm:w-[30vw] sm:px-0 xl:w-[19vw] 3xl:h-[600px] 3xl:w-[480px]"}
+            alt="Fotografía de El Mariana"
+            src="/img/boxers/el-mariana-big.avif"
+            style="
+							filter: drop-shadow(0 0 20px rgba(0, 0, 0, .5));
+							mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+						"
+          />
+        </picture>
+
+        <div class="absolute bottom-14 max-w-md text-wrap">
+          <h4
+            class="boxer-title -skew-y-6 text-center text-primary text-4xl font-black"
+          >
+            el mariana
+          </h4>
+        </div>
+
         <img
-          src="/img/boxers/el-mariana-big.webp"
-          alt={`Fotografia de el Mariana`}
-          class="boxer-photo h-[800px] w-[480px] object-contain"
-          style="filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));"
-        />
-        <img
-          src="/img/boxers/el-mariana-title.webp"
-          alt={`Fotografia de el Mariana`}
-          class="boxer-title absolute bottom-0"
-        />
-        <img
+          class:list={`boxer-flag pointer-events-none aspect-[3/2] h-auto w-20 object-contain object-center transition duration-[${msFadeLuchador}] 3xl:w-24`}
+          alt="Bandera de México"
           src="/img/flags/mx.webp"
-          alt={`Bandera de México`}
-          class="boxer-flag h-20 w-24 object-contain object-center"
         />
       </header>
+
       <footer
-        class="absolute bottom-0 flex w-full justify-between text-center text-white"
+        id="boxer-footer"
+        class="absolute bottom-0 hidden w-full justify-between text-center text-white transition duration-200 xl:flex"
       >
         <div class="flex flex-col gap-y-2">
           <h4 class="text-lg">País</h4>
@@ -65,112 +94,170 @@ const listOfBoxers = BOXERS.map((boxer) => {
         </div>
       </footer>
     </article>
-    <aside class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
-      {
-        listOfBoxers.map(({ id, name, country, countryName }) => (
-          <a
-            class="boxer-link group relative flex h-20 items-center justify-center"
-            title={`Visita la página del boxeador ${name}`}
-            href={`/boxers/${id}`}
-            data-id={id}
-            data-name={name}
-            data-country={country}
-            data-country-name={countryName}
-          >
-            <img
-              loading="lazy"
-              src={`/img/boxers/${id}-small.avif`}
-              alt={`Foto en pequeño del boxeador ${name}`}
-              class="boxer-image -mt-20 w-full object-contain px-2 transition group-hover:scale-110"
-            />
-          </a>
-        ))
-      }
+    <aside class="boxers-aside">
+      <div class="blur"><div class="clip-black"></div></div>
+      <nav class="boxers-nav">
+        {
+          listOfBoxers.map(({ id, name, country, countryName }) => (
+            <a
+              href={`/boxers/${id}`}
+              class="boxer-link"
+              title={`Visita la página del boxeador ${name}`}
+              data-id={id}
+              data-name={name}
+              data-country={country}
+              data-country-name={countryName}
+            >
+              <div class="boxer-link-background" />
+              <picture class="boxer-image">
+                <source
+                  srcset={`/img/boxers/${id}-small.avif`}
+                  type="image/avif"
+                />
+                <img
+                  loading="lazy"
+                  src={`/img/boxers/${id}-small.webp`}
+                  alt={`Foto en pequeño del boxeador ${name}`}
+                  class="boxer-image"
+                />
+              </picture>
+            </a>
+          ))
+        }
+      </nav>
     </aside>
   </div>
 </section>
 
 <script>
+  const article = document.querySelector("article") as HTMLElement;
   const boxerLinks = document.querySelectorAll(".boxer-link");
   const boxerTitle = document.querySelector(".boxer-title") as HTMLImageElement;
-  const boxerPhoto = document.querySelector(".boxer-photo") as HTMLImageElement;
+  const boxerPhoto = document.querySelector(
+    ".boxer-photo"
+  ) as HTMLPictureElement;
   const boxerCountry = document.querySelector(
     ".boxer-flag"
   ) as HTMLImageElement;
 
   boxerLinks.forEach((link) => {
     link.addEventListener("mouseenter", (event) => {
-      const { id, name, country, countryName } = event.currentTarget?.dataset;
+      const { id, name, country, countryName } = (
+        event.currentTarget as HTMLElement
+      )?.dataset;
 
-      const boxerSrc = `/img/boxers/${id}-big.webp`;
-      const titleSrc = `/img/boxers/${id}-title.webp`;
+      setTimeout(
+        () => {
+          const boxerSrc = `/img/boxers/${id}-big`;
 
-      boxerPhoto.src = boxerSrc;
-      boxerTitle.src = titleSrc;
-      boxerCountry.src = `/img/flags/${country}.webp`;
+          boxerPhoto.getElementsByTagName("source")[0].srcset =
+            `${boxerSrc}.avif`;
+          boxerPhoto.getElementsByTagName("img")[0].src = `${boxerSrc}.webp`;
+          boxerTitle.innerText = name?.toLocaleLowerCase() ?? "";
+          boxerCountry.src = `/img/flags/${country}.webp`;
 
-      boxerPhoto.alt = `Fotografía de ${name}`;
-      boxerTitle.alt = name;
-      boxerCountry.alt = `Bandera de ${countryName}`;
+          boxerPhoto.getElementsByTagName("img")[0].alt =
+            `Fotografía de ${name}`;
+          boxerCountry.alt = `Bandera de ${countryName}`;
+        },
+        article.getAttribute("data-transition-duration") as unknown as number
+      );
     });
   });
 </script>
 
 <style>
-  .boxer-link {
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 40%,
-      transparent 100%
-    );
-    transition: all 0.5s ease;
+  .boxers-aside {
+    display: flex;
+    max-width: 100vw;
+    height: 8rem;
+    overflow-x: scroll;
+    position: relative;
+    scrollbar-width: none;
   }
 
-  .boxer-link::before {
-    content: "";
+  .boxers-nav {
+    display: flex;
+    gap: 0.5rem;
+    height: 100%;
+
+    padding: 1rem 5rem;
+  }
+
+  .boxer-link {
+    @apply size-40;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+  }
+
+  .boxer-link-background {
     position: absolute;
-    inset: 0;
+    width: 100%;
+    bottom: 0;
     display: block;
     background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.2) 0%,
-      transparent 40%,
-      transparent 100%
+      180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.5) 30%,
+      rgba(0, 0, 0, 0) 95%
     );
-    opacity: 0;
-    height: 50%;
-    transition:
-      opacity 0.2s ease-in-out,
-      height 0.2s ease-in-out;
+    opacity: 0.25;
+    height: 60%;
+    transition: filter 0.3s ease-in-out;
   }
 
-  .boxer-link:hover::before {
-    opacity: 0.8;
-    height: 90%;
-    box-shadow: 0 0px 3px rgba(50, 50, 50, 0.75);
+  .boxer-link:hover {
+    opacity: 0.9;
   }
 
   .boxer-image {
-    transition: transform 0.3s ease-in-out;
+    object-fit: contain;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+    height: 100%;
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   }
 
   .boxer-link:hover .boxer-image {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
-  aside {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 40px;
+  .boxer-link:hover .boxer-link-background {
+    filter: brightness(0.5);
+  }
 
-    a {
-      grid-column: span 2;
+  @media (min-width: 1280px) {
+    .boxers-aside {
+      padding: 0.5rem 0;
+      display: block;
+      max-width: none;
+      width: 100%;
+      overflow: hidden;
+      height: auto;
+    }
 
-      &:nth-child(11n + 7) {
-        grid-column-start: 2;
-        grid-column-end: 4;
-      }
+    .boxers-nav {
+      @apply grid w-full max-w-6xl gap-y-0 overflow-hidden;
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .boxer-link {
+      @apply flex items-center justify-center;
+      width: 100%;
+    }
+
+    .boxer-image {
+      @apply h-full;
+    }
+  }
+
+  @media (max-width: 1650px) {
+    .boxers-aside.up {
+      margin-top: -15rem;
     }
   }
 </style>

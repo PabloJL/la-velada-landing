@@ -196,13 +196,13 @@ export const BOXERS: Boxer[] = [
 		age: 27,
 		weight: 83, // No encontrado
 		height: 1.83, // No encontrado
-		country: "es",
-	},
+		country: "es",      
+	},  
 	{
 		id: "folagor",
 		name: "Folagor",
 		realName: "Yoel Ramírez Pulido",
-		age: 29,
+		age: 29,                                      
 		weight: 71,
 		height: 1.8,
 		country: "es",
