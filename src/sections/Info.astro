@@ -1,64 +1,46 @@
 ---
-import TwitchIcon from "@/icons/twitch.astro";
+import TwitchLogo from "@/components/TwitchLogo.astro";
 ---
 
 <section
-  class="flex font-medium text-primary dark:text-white gap-y-10 my-32 flex-col"
+  class="group mt-44 flex w-full flex-col items-center justify-center px-20 font-medium text-primary md:mt-80"
+  aria-label="descripción del evento"
 >
-  <div class="flex justify-center items-center">
-    <a
-      href="https://twitch.tv/ibai"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="hover:scale-125 hover:opacity-70 transition inline-block"
-    >
-      <TwitchIcon class="twitch" />
-    </a>
-  </div>
-  <div
-    class="grid [grid-template-columns:1fr] uppercase text-center gap-x-10 md:[grid-template-columns:1fr_1.5fr_1fr]"
+  <hr
+    class="h-[2px] min-w-[20rem] max-w-lg border-t-0 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent sm:w-full"
+  />
+
+  <a
+    href="https://www.twitch.tv/ibai"
+    target="_blank"
+    rel="nofollow noopener"
+    class="group/twitch mb-8 mt-0"
+    aria-hidden="true"
+    tabindex="-1"
+    title="Enlace al canal de Twitch de Ibai Llanos"
   >
-    <article
-      class="order-2 md:order-none md:flex-grow flex justify-center items-center text-xl md:py-12 lg:py-20 py-10 px-10 border-y-2 border-primary dark:border-white"
+    <div
+      class="mx-auto -mt-8 mb-4 w-14 scale-75 group-hover/twitch:scale-90 motion-safe:transition md:-mt-8 md:mb-9 md:scale-110 md:group-hover/twitch:scale-125"
     >
-      <h5 class="w-56 text-center">
-        Presentación, Pesaje, Entrevista y Cara a Cara
-      </h5>
-    </article>
-    <article
-      class="order-1 md:order-none md:flex-1 border-t-2 flex justify-center items-center text-4xl py-10 md:py-12 lg:py-20 px-10 md:border-y-2 border-primary dark:border-white"
+      <TwitchLogo />
+    </div>
+
+    <div
+      class="duration-200 group-hover/twitch:scale-110 motion-safe:transition"
     >
-      <h4>
-        <a
-          class="hover:text-twitch transition hover:scale-110 inline-block"
-          href="https://twitch.tv/ibai"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Siguelo en directo en twitch.tv/ibai
-        </a>
-      </h4>
-    </article>
-    <article
-      class="order-3 md:order-none flex justify-center items-center text-xl py-10 md:py-12 lg:py-20 px-10 border-b-2 md:border-y-2 border-primary dark:border-white"
-    >
-      <h5>Con la presencia de los boxeadores y las boxeadoras</h5>
-    </article>
-  </div>
+      <span
+        class="skew-x-10 block -rotate-4 text-center font-atomic text-xl text-white underline-offset-8 transition sm:text-2xl md:text-5xl"
+        >en directo
+      </span>
+      <h2
+        class="flex justify-center text-4xl md:text-5xl -mt-2 text-wrap text-center text-primary"
+      >
+        twitch.tv/ibai
+      </h2>
+    </div>
+  </a>
+
+  <hr
+    class="my-7 h-[2px] w-full min-w-[20rem] max-w-lg border-t-0 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent md:my-9"
+  />
 </section>
-
-<style>
-  .twitch {
-    view-timeline-name: --twitch;
-    view-timeline-axis: block;
-
-    animation-timeline: --twitch;
-    animation-name: show;
-  }
-
-  @keyframes shoe {
-    to {
-      color: purple;
-    }
-  }
-</style>
